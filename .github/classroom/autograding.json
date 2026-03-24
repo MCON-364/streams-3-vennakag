@@ -1,112 +1,103 @@
 {
   "tests": [
     {
-      "name": "StreamTaskExercises - highPriorityDescriptions",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#highPriorityDescriptions_returnsDescriptionsInEncounterOrder test",
+      "name": "WeatherDS - parseRow well-formed",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#parseRow_wellFormedRow_returnsPopulatedOptional test",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 8
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - countByStatus",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#countByStatus_countsTasksPerStatus test",
+      "name": "WeatherDS - parseRow too few columns",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#parseRow_tooFewColumns_returnsEmpty test",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 8
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - descriptionsByPriority",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#descriptionsByPriority_groupsDescriptionsByPriority test",
+      "name": "WeatherDS - parseRow missing temperature",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#parseRow_missingTemperature_returnsEmpty test",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 8
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - partitionByDone",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#partitionByDone_splitsTasksIntoTrueAndFalseBuckets test",
+      "name": "WeatherDS - parseRow non-numeric temperature",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#parseRow_nonNumericTemperature_returnsEmpty test",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 8
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - countDonePartition",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#countDonePartition_countsDoneAndNotDone test",
+      "name": "WeatherDS - isValid temperature boundaries",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#isValid_temperatureAtMaxBoundary_isValid+isValid_temperatureAtMinBoundary_isValid+isValid_temperatureAboveMax_isInvalid+isValid_temperatureBelowMin_isInvalid test",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 8
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - groupByStatusThenPriority",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#groupByStatusThenPriority_buildsNestedGrouping test",
+      "name": "WeatherDS - isValid humidity boundaries",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#isValid_humidityAtMinBoundary_isValid+isValid_humidityAtMaxBoundary_isValid+isValid_humidityBelowMin_isInvalid+isValid_humidityAboveMax_isInvalid test",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 8
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - sortedDescriptionsByStatus",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#sortedDescriptionsByStatus_groupsAndSortsDescriptionsAlphabetically test",
+      "name": "WeatherDS - isValid precipitation",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#isValid_precipitationZero_isValid+isValid_negativePrecipitation_isInvalid test",
       "input": "",
       "output": "",
       "comparison": "included",
       "timeout": 10,
-      "points": 8
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - doneTaskSummary",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#doneTaskSummary_joinsDoneDescriptionsInEncounterOrder test",
+      "name": "WeatherDS - integration cleaned list non-empty",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#integration_cleanedListIsNonEmpty test",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
-      "points": 8
+      "timeout": 15,
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - allTags",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#allTags_flattensTagsInEncounterOrder test",
+      "name": "WeatherDS - integration all cleaned records valid",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#integration_allCleanedRecordsPassIsValid test",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
-      "points": 9
+      "timeout": 15,
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - distinctDoneAssignees",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#distinctDoneAssignees_returnsDistinctAssigneesForDoneItemsInOrder test",
+      "name": "WeatherDS - integration hottest city non-null",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#integration_cityWithHighestAvgTempIsNonNull test",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
-      "points": 9
+      "timeout": 15,
+      "points": 5
     },
     {
-      "name": "StreamTaskExercises - idToStatus",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#idToStatus_buildsMapFromIdToStatus test",
+      "name": "WeatherDS - integration wettest day non-negative",
+      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.ds.WeatherDataScienceExerciseTest#integration_wettestDayHasNonNegativePrecipitation test",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
-      "points": 9
-    },
-    {
-      "name": "StreamTaskExercises - titlesByPriorityUsingMapping",
-      "run": "mvn -q -B -ntp -Dtest=edu.touro.las.mcon364.streams.exercises.StreamTaskExercisesTest#titlesByPriorityUsingMapping_groupsTitlesByPriority test",
-      "input": "",
-      "output": "",
-      "comparison": "included",
-      "timeout": 10,
-      "points": 9
+      "timeout": 15,
+      "points": 5
     }
   ]
 }

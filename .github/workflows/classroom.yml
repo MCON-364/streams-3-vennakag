@@ -1,22 +1,22 @@
 name: Autograder
-
 on:
   push:
     branches: [ main, develop ]
   workflow_dispatch:
-
 jobs:
   autograde:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
           cache: maven
-
+      - name: Copy autograder tests into project
+        run: |
+          mkdir -p src/test/java/edu/touro/las/mcon364/streams/ds
+          cp .github/tests/WeatherDataScienceExerciseTest.java \
+             src/test/java/edu/touro/las/mcon364/streams/ds/WeatherDataScienceExerciseTest.java
       - name: Run GitHub Classroom Autograder
         uses: education/autograding@v1

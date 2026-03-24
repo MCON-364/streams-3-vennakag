@@ -1,11 +1,10 @@
 package edu.touro.las.mcon364.streams.ds;
-import java.nio.file.*;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.NoSuchFileException;
 import java.util.*;
 import java.util.stream.*;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
 
 
 public class WeatherDataScienceExercise {
@@ -20,7 +19,7 @@ public class WeatherDataScienceExercise {
     ) {}
 
     public static void main(String[] args) throws Exception {
-        List<String> rows = Files.readAllLines(Path.of("noaa_weather_sample_200_rows.csv"));
+        List<String> rows = readCsvRows("noaa_weather_sample_200_rows.csv");
 
         List<WeatherRecord> cleaned = rows.stream()
                 .skip(1) // skip header
@@ -98,4 +97,14 @@ public class WeatherDataScienceExercise {
             double avgPrecipitation,
             double maxTemp
     ) {}
+
+    private static List<String> readCsvRows(String fileName) throws IOException {
+        InputStream in = WeatherDataScienceExercise.class.getResourceAsStream(fileName);
+        if (in == null) {
+            throw new NoSuchFileException("Classpath resource not found: " + fileName);
+        }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+            return reader.lines().toList();
+        }
+    }
 }

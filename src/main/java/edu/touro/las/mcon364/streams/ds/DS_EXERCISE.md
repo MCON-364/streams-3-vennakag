@@ -160,6 +160,48 @@ Map<String, CityWeatherSummary>
 
 ---
 
+## Part 4 — Unit Tests
+
+Write unit tests for your implementation in a new test class:
+
+```
+src/test/java/edu/touro/las/mcon364/streams/ds/WeatherDataScienceExerciseTest.java
+```
+
+### Required tests
+
+#### `parseRow` tests
+- A well-formed row returns a non-empty `Optional` with correct field values.
+- A row with too few columns returns `Optional.empty()`.
+- A row with a missing temperature value returns `Optional.empty()`.
+- A row with a non-numeric temperature returns `Optional.empty()`.
+
+#### `isValid` tests
+- A record with temperature `60` is valid (boundary).
+- A record with temperature `-60` is valid (boundary).
+- A record with temperature `61` is invalid.
+- A record with temperature `-61` is invalid.
+- A record with humidity `0` is valid (boundary).
+- A record with humidity `100` is valid (boundary).
+- A record with humidity `-1` is invalid.
+- A record with humidity `101` is invalid.
+- A record with negative precipitation is invalid.
+- A record with precipitation `0` is valid.
+
+#### Integration tests (using the real CSV)
+- After parsing and cleaning, the cleaned list is non-empty.
+- All records in the cleaned list pass `isValid`.
+- The city with the highest average temperature is a non-null, non-empty string.
+- The wettest single day has precipitation `>= 0`.
+
+### Guidelines
+- Use **JUnit 5** (`@Test`, `assertNotNull`, `assertTrue`, `assertEquals`, `assertFalse`, `assertThrows`, etc.).
+- Each test method should test **one thing**.
+- Use descriptive method names, e.g. `parseRow_missingTemperature_returnsEmpty`.
+- Do not rely on `System.out` output in tests — assert on return values and collections directly.
+
+---
+
 ## Suggested Stream operations
 
 You will likely use many of these:
@@ -254,6 +296,11 @@ Complete `WeatherDataScienceExercise.java` so that it:
 - cleans invalid rows
 - computes the required summaries
 - prints readable output
+
+Write `MyExerciseTest.java` so that it:
+
+- covers all required test cases listed in Part 4
+- all tests pass with `mvn test`
 
 ---
 

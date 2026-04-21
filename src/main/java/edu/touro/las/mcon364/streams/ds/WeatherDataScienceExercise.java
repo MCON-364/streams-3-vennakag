@@ -33,36 +33,45 @@ public class WeatherDataScienceExercise {
 
         // TODO 1:
         // Count how many valid weather records remain after cleaning.
+        cleaned.stream().count();
 
         // TODO 2:
         // Compute the average temperature across all valid rows.
-
+        cleaned.stream().map(t->t.temperatureC).collect(Collectors.averagingDouble(t->t));
         // TODO 3:
         // Find the city with the highest average temperature.
-
+        var cityAndHighestTemp = cleaned.stream().collect(Collectors.groupingBy(
+                w->w.city,Collectors.averagingDouble(w->w.temperatureC)));
+        cityAndHighestTemp.entrySet().stream().max(Comparator.comparingDouble(Map.Entry::getValue))
+                .map(Map.Entry::getKey).ifPresent(System.out::println);
         // TODO 4:
         // Group records by city.
+        cleaned.stream().collect(Collectors.groupingBy(w->w.city));
 
         // TODO 5:
         // Compute average precipitation by city.
-
+        cleaned.stream().collect(Collectors.groupingBy(w->w.city,
+                Collectors.averagingDouble(w->w.precipitationMm)));
         // TODO 6:
         // Partition rows into freezing days (temperature <= 0)
         // and non-freezing days (temperature > 0).
-
+        cleaned.stream().collect(Collectors.partitioningBy(w->w.temperatureC<= 0));
         // TODO 7:
         // Create a Set<String> of all distinct cities.
-
+        cleaned.stream().map(w->w.city).distinct().collect(Collectors.toSet());
         // TODO 8:
         // Find the wettest single day.
-
+        cleaned.stream().max(Comparator.comparingDouble(w->w.precipitationMm)).
+                map(w->w.date).ifPresent(System.out::println);
         // TODO 9:
         // Create a Map<String, Double> from city to average humidity.
+        cleaned.stream().collect(Collectors.groupingBy(w->w.city,
+                        Collectors.averagingDouble(w->w.humidity)));
 
         // TODO 10:
         // Produce a list of formatted strings like:
         // "Miami on 2025-01-02: 25.1C, humidity 82%"
-
+        cleaned.stream().collect(Collectors.toList());
         // TODO 11 (optional):
         // Build a Map<String, CityWeatherSummary> for all cities.
 
@@ -76,8 +85,15 @@ public class WeatherDataScienceExercise {
         // 3. Reject rows with missing temperature
         // 4. Parse numeric values safely
         // 5. Return Optional.empty() if parsing fails
-
-        throw new UnsupportedOperationException("TODO: implement parseRow");
+        if(row == null) return Optional.empty();
+        String[] parsedRow = row.split(", ");
+        if (!(parsedRow.length ==6)) {
+            return Optional.empty();
+        }else if ((parsedRow[3].isBlank())){
+            return Optional.empty();
+        }
+        return  Optional.of(new WeatherRecord(parsedRow[0], parsedRow[1], parsedRow[2], Double.parseDouble(parsedRow[3]),
+                Integer.parseInt(parsedRow[4]), Double.parseDouble(parsedRow[5])));
     }
 
     static boolean isValid(WeatherRecord r) {
@@ -86,8 +102,15 @@ public class WeatherDataScienceExercise {
         // - temperature is between -60 and 60
         // - humidity is between 0 and 100
         // - precipitation is >= 0
-
-        throw new UnsupportedOperationException("TODO: implement isValid");
+        boolean valid = true;
+        if(!(r.temperatureC <= 60 && r.temperatureC >= -60)){
+            valid = false;
+        }else if(!(r.humidity <= 100 && r.humidity >= 0)){
+            valid = false;
+        }else if(!(r.precipitationMm >= 0)){
+            valid = false;
+        }
+        return valid;
     }
 
     record CityWeatherSummary(

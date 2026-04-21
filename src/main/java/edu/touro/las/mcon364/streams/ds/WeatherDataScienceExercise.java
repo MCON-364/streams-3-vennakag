@@ -86,14 +86,26 @@ public class WeatherDataScienceExercise {
         // 4. Parse numeric values safely
         // 5. Return Optional.empty() if parsing fails
         if(row == null) return Optional.empty();
-        String[] parsedRow = row.split(", ");
+        String[] parsedRow = row.split(",");
         if (!(parsedRow.length ==6)) {
             return Optional.empty();
         }else if ((parsedRow[3].isBlank())){
             return Optional.empty();
         }
-        return  Optional.of(new WeatherRecord(parsedRow[0], parsedRow[1], parsedRow[2], Double.parseDouble(parsedRow[3]),
-                Integer.parseInt(parsedRow[4]), Double.parseDouble(parsedRow[5])));
+        try {
+            return Optional.of(
+                    new WeatherRecord(
+                            parsedRow[0].trim(),
+                            parsedRow[1].trim(),
+                            parsedRow[2].trim(),
+                            Double.parseDouble(parsedRow[3].trim()),
+                            Integer.parseInt(parsedRow[4].trim()),
+                            Double.parseDouble(parsedRow[5].trim())
+                    )
+            );
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
     }
 
     static boolean isValid(WeatherRecord r) {
